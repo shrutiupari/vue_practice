@@ -21,16 +21,19 @@
 // })
 
 // export default router
-import { createRouter, createWebHistory } from 'vue-router'
-import InvoiceList from '../components/InvoiceList.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import InvoiceList from "../components/InvoiceList.vue";
+import AddInvoice from "../components/AddInvoice.vue";
 
 const routes = [
-  { path: '/', name: 'Home', component: InvoiceList },
-]
+  { path: "/list", component: InvoiceList },
+  { path: "/", component: AddInvoice },
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+});
 
-export default router
+export default router;
+

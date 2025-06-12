@@ -1,35 +1,42 @@
 <template>
   <v-container>
-    <v-data-table :headers="headers" :items="invoices" class="elevation-1">
-      <template #item.createdAt="{ item }">
-        {{ new Date(item.createdAt).toLocaleDateString() }}
-      </template>
+    <h2>Invoices</h2>
+    <v-data-table height="250px" fixed-header>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Patient ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Issued At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="invoice in invoices" :key="invoice.id">
+          <td>{{ invoice.id }}</td>
+          <td>{{ invoice.patientId }}</td>
+          <td>{{ invoice.amount }}</td>
+          <td>{{ invoice.status }}</td>
+          <td>{{ invoice.issuedAt }}</td>
+        </tr>
+      </tbody>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../services/api'
+
 export default {
-  name: 'InvoiceList',
   data() {
     return {
       invoices: [],
-      headers: [
-        { text: 'ID', value: 'id' },
-        { text: 'Invoice Number', value: 'invoiceNumber' },
-        { text: 'Amount', value: 'amount' },
-        { text: 'Created At', value: 'createdAt' },
-      ],
     }
   },
   async mounted() {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/api/invoices')
-      this.invoices = response.data['hydra:member'] || response.data
-    } catch (error) {
-      console.error('Error loading invoices:', error)
-    }
+    const response = await api.get('/invoices')
+    this.invoices = response.data
   },
 }
 </script>
