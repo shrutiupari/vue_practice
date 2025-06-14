@@ -63,7 +63,6 @@ import api from '@/services/api'
 import { ref } from 'vue'
 
 const success = ref(false)
-const form = ref(null)
 const patientId = ref('')
 const amount = ref(null)
 

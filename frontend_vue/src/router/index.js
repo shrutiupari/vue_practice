@@ -24,10 +24,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import InvoiceList from "../components/InvoiceList.vue";
 import AddInvoice from "../components/AddInvoice.vue";
+import MainComponent from "@/components/MainComponent.vue";
 
 const routes = [
   { path: "/list", component: InvoiceList },
-  { path: "/", component: AddInvoice },
+  { path: "/addInvoice", component: AddInvoice },
+  { path: "/", component: MainComponent }
 ];
 
 const router = createRouter({

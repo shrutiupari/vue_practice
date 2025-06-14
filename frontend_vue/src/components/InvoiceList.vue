@@ -40,7 +40,7 @@
             color="medium-emphasis"
             icon="mdi-pencil"
             size="small"
-            @click="edit(item.id)"
+            @click="edit(item)"
           ></v-icon>
 
           <v-icon
@@ -52,6 +52,26 @@
         </div>
       </template>
     </v-data-table>
+
+    <v-dialog v-model="dialog" max-width="450" @after-leave="onAfterLeave">
+      <v-card density="compact" title="Edit">
+        <v-divider />
+        <v-card-text>
+          <v-text-field v-model="invoices.amount" density="compact" label="Amount" />
+          <v-text-field v-model="invoices.issuedAt" density="compact" label="Date" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-icon
+            :loading="isSaving"
+            color="primary"
+            icon="mdi-content-save"
+            variant="flat"
+            @click="save"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -75,6 +95,8 @@ import api from '@/services/api'
 import { onMounted, ref } from 'vue'
 
 const invoices = ref([])
+const dialog = ref(false)
+const isSaving = ref(false)
 
 const headers = [
   {
@@ -114,11 +136,24 @@ onMounted(() => {
   fetchInvoices()
 })
 
-const edit = (id) => {
-  console.log('editing', id)
+const edit = (item) => {
+  console.log('editing', item)
+  dialog.value = true
+  invoices.value = [{ ...item }]
 }
 
 const remove = (id) => {
   console.log('editing', id)
+}
+
+const onAfterLeave = () => {
+  invoices.value = headers
+}
+
+const save = async () => {
+  isSaving.value = true
+  // await new Promise(resolve => setTimeout(resolve, 1000))
+  // const index = invoices.
+  console.log(invoices.value)
 }
 </script>
