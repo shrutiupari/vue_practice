@@ -1,20 +1,30 @@
-import { fileURLToPath, URL } from 'node:url'
-
+// vite.config.js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import vuetify from 'vite-plugin-vuetify'
+import path from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    vueJsx(),
-    vueDevTools(),
+    vuetify({ autoImport: true }),
   ],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    deps: {
+      inline: ['vuetify'],
+    },
+    setupFiles: './tests/setup.js', // optional setup
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8000'
+    }
+  }
 })

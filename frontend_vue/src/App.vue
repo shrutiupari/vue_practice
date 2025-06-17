@@ -1,9 +1,6 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-import AddInvoice from './components/AddInvoice.vue'
+import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
-import InvoiceList from './components/InvoiceList.vue'
 </script>
 
 <template>

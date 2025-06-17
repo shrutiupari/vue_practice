@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Your Invoice from
+			{{ organization_name }}</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				color: #333;
+				padding: 20px;
+			}
+			.container {
+				background-color: #fff;
+				padding: 30px;
+				border-radius: 8px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			}
+			.header {
+				font-size: 20px;
+				margin-bottom: 20px;
+				color: #2c3e50;
+			}
+			.invoice-details {
+				margin: 20px 0;
+			}
+			.invoice-details table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			.invoice-details th,
+			.invoice-details td {
+				padding: 10px;
+				text-align: left;
+				border-bottom: 1px solid #ddd;
+			}
+			.total {
+				font-size: 16px;
+				font-weight: bold;
+				margin-top: 20px;
+			}
+			.footer {
+				margin-top: 30px;
+				font-size: 12px;
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">Hello
+				{{ patient_name }},</div>
+
+			<p>Thank you for your visit. Please find the details of your invoice below:</p>
+
+			<div class="invoice-details">
+				<table>
+					<tr>
+						<th>Description</th>
+						<th>Amount</th>
+					</tr>
+					<tr>
+						<td>{{ invoice.description }}</td>
+						<td>${{ invoice.amount|number_format(2) }}</td>
+					</tr>
+				</table>
+
+				<p class="total">Total: ${{ invoice.amount|number_format(2) }}</p>
+			</div>
+
+			<p>If you have any questions, feel free to reply to this email.</p>
+
+			<p>Regards,<br>{{ organization_name }}
+				Team</p>
+
+			<div class="footer">
+				This is an automated message. Please do not reply directly to this email.
+			</div>
+		</div>
+	</body>
+</html>

@@ -25,11 +25,19 @@ import { createRouter, createWebHistory } from "vue-router";
 import InvoiceList from "../components/InvoiceList.vue";
 import AddInvoice from "../components/AddInvoice.vue";
 import MainComponent from "@/components/MainComponent.vue";
+import BaseInput from "@/components/BaseInput.vue";
+import SendOtp from "@/components/SendOtp.vue";
+import InvoiceForn from "@/components/InvoiceForn.vue";
+import Task from "@/components/Task.vue";
 
 const routes = [
   { path: "/list", component: InvoiceList },
   { path: "/addInvoice", component: AddInvoice },
-  { path: "/", component: MainComponent }
+  { path: "/", component: MainComponent },
+  { path: "/baseInput", component: BaseInput },
+  { path: "/sendOtp", component: SendOtp },
+  { path: "/invoiceForm", component: InvoiceForn },
+  { path: "/toDoList", component: Task },
 ];
 
 const router = createRouter({

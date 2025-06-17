@@ -1,3 +1,25 @@
+<script setup>
+// import api from '@/services/api'
+import api from '@/services/api'
+import { ref } from 'vue'
+import BaseInput from './BaseInput.vue'
+
+const success = ref(false)
+const patientId = ref('')
+const amount = ref(null)
+
+const submitForm = async () => {
+  const res = await api.post(`/invoices`, {
+    patientId: parseInt(patientId.value),
+    amount: parseFloat(amount.value),
+  })
+
+  if (res.status === 200) {
+    success.value = true
+  }
+}
+</script>
+
 <template>
   <v-container>
     <v-card>
@@ -5,6 +27,7 @@
       <v-card-text>
         <v-form @submit.prevent="submitForm">
           <v-text-field v-model="patientId" label="Patient ID" required />
+          <!-- <BaseInput v-model="patientId" label="Patient ID" required /> -->
           <v-text-field v-model="amount" label="Amount" required />
           <v-btn color="primary" type="submit">Submit</v-btn>
         </v-form>
@@ -58,22 +81,3 @@ export default {
   },
 }
 </script> -->
-<script setup>
-import api from '@/services/api'
-import { ref } from 'vue'
-
-const success = ref(false)
-const patientId = ref('')
-const amount = ref(null)
-
-const submitForm = async () => {
-  const res = await api.post(`/invoices`, {
-    patientId: parseInt(patientId.value),
-    amount: parseFloat(amount.value),
-  })
-
-  if (res.status === 200) {
-    success.value = true
-  }
-}
-</script>

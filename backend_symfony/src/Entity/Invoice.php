@@ -25,6 +25,15 @@ class Invoice
     #[ORM\Column]
     private ?\DateTime $issuedAt = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $patientEmail = null;
+
+    #[ORM\Column(length: 150)]
+    private ?string $patientName = null;
+
+    #[ORM\Column(length: 200)]
+    private ?string $description = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +83,42 @@ class Invoice
     public function setIssuedAt(\DateTime $issuedAt): static
     {
         $this->issuedAt = $issuedAt;
+
+        return $this;
+    }
+
+    public function getPatientEmail(): ?string
+    {
+        return $this->patientEmail;
+    }
+
+    public function setPatientEmail(string $patientEmail): static
+    {
+        $this->patientEmail = $patientEmail;
+
+        return $this;
+    }
+
+    public function getPatientName(): ?string
+    {
+        return $this->patientName;
+    }
+
+    public function setPatientName(string $patientName): static
+    {
+        $this->patientName = $patientName;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

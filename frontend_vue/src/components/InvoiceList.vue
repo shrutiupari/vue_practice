@@ -28,6 +28,12 @@
       </tbody> -->
       <template #item.patientId="{ item }"> {{ item.patientId }} </template>
       <template #item.amount="{ item }"> $ {{ item.amount.toFixed(2) }} </template>
+      <template #item.email="{ item }">
+        {{ item.patient_email }}
+      </template>
+      <template #item.description="{ item }">
+        {{ item.description }}
+      </template>
       <template #item.status="{ item }">
         {{ item.status }}
       </template>
@@ -48,6 +54,13 @@
             icon="mdi-delete"
             size="small"
             @click="remove(item.id)"
+          ></v-icon>
+
+          <v-icon
+            color="medium-emphasis"
+            icon="mdi-email"
+            size="small"
+            @click="emailInvoice(item.id)"
           ></v-icon>
         </div>
       </template>
@@ -70,6 +83,9 @@
             @click="save"
           />
         </v-card-actions>
+        <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000">
+          {{ snackbar.message }}
+        </v-snackbar>
       </v-card>
     </v-dialog>
   </v-container>
@@ -92,6 +108,7 @@ export default {
 </script> -->
 <script setup>
 import api from '@/services/api'
+import invoiceService from '@/services/invoiceService'
 import { onMounted, ref } from 'vue'
 
 const invoices = ref([])
@@ -110,6 +127,14 @@ const headers = [
   {
     title: 'Amount',
     key: 'amount',
+  },
+  {
+    title: 'Email',
+    key: 'email',
+  },
+  {
+    title: 'Description',
+    key: 'description',
   },
   {
     title: 'Status',
@@ -155,5 +180,26 @@ const save = async () => {
   // await new Promise(resolve => setTimeout(resolve, 1000))
   // const index = invoices.
   console.log(invoices.value)
+}
+
+const snackbar = ref({
+  show: false,
+  message: '',
+  color: 'success', // or 'error'
+})
+
+const showSnackbar = (message, color = 'success') => {
+  snackbar.value.message = message
+  snackbar.value.color = color
+  snackbar.value.show = true
+}
+
+const emailInvoice = async (invoiceId) => {
+  try {
+    await invoiceService.sendInvoiceEmail(invoiceId)
+    showSnackbar('Invoice emailed successfully!')
+  } catch (error) {
+    showSnackbar(error.message || 'Failed to send invoice email.', 'error')
+  }
 }
 </script>

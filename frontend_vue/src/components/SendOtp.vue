@@ -38,15 +38,15 @@ const handleSendOtp = async () => {
   error.value = ''
 
   try {
-    await axios.post(`/api/send-opt`, {
-      phoneNumber: phoneNumber,
+    await axios.post(`/api/send-otp`, {
+      phoneNumber: phoneNumber.value,
     })
     success.value = true
     form.value?.reset()
   } catch (err) {
-    error.value = err.response.data?.message || 'Unknown error'
+    console.log(err)
+
+    // error.value = err.response.data?.message || 'Unknown error'
   }
 }
 </script>
-
-<style></style>

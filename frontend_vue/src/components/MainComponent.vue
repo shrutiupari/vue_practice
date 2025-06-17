@@ -28,7 +28,10 @@ const router = useRouter()
 const navigationItems = ref([
   { text: 'Invoice List', icon: 'mdi-format-list-bulleted', route: '/list' },
   { text: 'Add Invoice', icon: 'mdi-file-plus-outline', route: '/addInvoice' },
-  { text: 'Send OTP', icon: 'mdi-message-text', route: '/send-otp' },
+  { text: 'Send OTP', icon: 'mdi-message-text', route: '/sendOtp' },
+  { text: 'Base Input', icon: 'mdi-message-text', route: '/baseInput' },
+  { text: 'Invoice Form', icon: 'mdi-file-plus-outline', route: '/invoiceForm' },
+  { text: 'To Do List', icon: 'mdi-file-plus-outline', route: '/toDoList' },
 ])
 
 const navigateTo = (route) => {
